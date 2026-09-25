@@ -24,12 +24,12 @@ I created an unprivileged cowrie user account and deployed the Cowrie honeypot e
 
 ## Phase 3: Live Fire Attack Simulation
 Operating from a separate attacking machine, I targeted the honeypot's IP address on the standard SSH port (Port 22). The iptables rule successfully captured the traffic and routed me into the deceptive Cowrie environment. I executed unauthorized reconnaissance commands (whoami, ls -la) which the honeypot silently recorded.
-![alt text](images/3-live-fire.png)
+![alt text](<images/3-honeypot access.png>)
 
 ## Phase 4: Forensic Telemetry Generation
 Cowrie actively monitors the compromised session and generates structured JSON logs of all threat actor activity. I validated the local log generation pipeline by inspecting cowrie.json, confirming that the simulated attacker's IP, session ID, and specific keystrokes were successfully captured at the infrastructure level.
-![alt text](images/4-cowrie-logs.png)
+![alt text](images/4-forensic-logs.png)
 
 ## Phase 5: SIEM Ingestion & XML Rule Engineering
 To translate raw logs into actionable intelligence, I configured a Wazuh Agent to monitor the cowrie.json file and ship it over TCP/1514 to the containerized Wazuh Manager. With the pipeline stabilized, the SIEM successfully ingested the logs, matched them against the custom cowrie rule group, and visualized the exact commands executed by the attacker in the Discover dashboard.
-![alt text](images/5-attack-dashboard.png)# cowrie-honeypot-lab
+![alt text](images/5-attack-dashboard.png)
